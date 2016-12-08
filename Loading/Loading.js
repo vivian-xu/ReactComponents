@@ -1,4 +1,39 @@
-import {_addEvent} from '../../commons/utiles';
+// import {_addEvent} from '../../commons/utiles';
+
+/*
+  DOM0 / DOM2 / IE 方法来添加事件
+*/
+let _addEvent = (element, action, event, fn) => {
+  if(action === 'on' ) {
+
+    if (element.addEventListener) {
+      // DOM2 级事件处理  ,
+      // 第三个参数 true ，添加到捕获阶段
+      // 为 false 添加到 冒泡阶段
+      element.addEventListener(event, fn, false);
+    } else if(element.attachEvent) {
+      //  IE 添加到冒泡阶段
+      element.attachEvent( "on" + event, fn);
+    } else {
+      // DOM0 级事件处理
+      element["on" + event ] = fn;
+    }
+
+  }else if(action === 'remove') {
+
+    if (element.addEventListener) {
+      element.removeEventListener(event, fn, false);
+    } else if(element.detachEvent) {
+      element.detachEvent( "on" + event, fn);
+    } else {
+      element["on" + event ] = null;
+    }
+
+  } else {
+    throw Error('the second parameter of _addEvent Function can only be "on" or "remove" ');
+  }
+}
+
 
 class Loading extends React.PureComponent {
   static defaultProps = {
