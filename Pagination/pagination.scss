@@ -1,0 +1,22 @@
+#pagination-wrap {
+    color: #fff;
+
+}
+#pagesControll {
+    li {
+        display: inline-block;
+        margin: 2px;
+        background-color: #fff;
+        &.active {
+            background-color: #0D1115;
+            a {
+                color: #fff;
+            }
+        }
+
+        a {
+            display: block;
+            padding: 0 4px;
+        }
+    }
+}
